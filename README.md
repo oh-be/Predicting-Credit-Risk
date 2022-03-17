@@ -47,9 +47,9 @@ Both of these models performed heavy in recall (which is kinda what we hoped for
 
 ![results.png](Images/results.png)
 
-## Revisit the Preprocessing: Scale the data
+## Revisit Preprocessing: Scale the data
 
-The data going into these models was never scaled, an important step in preprocessing. Used `RobustScaler` to scale the training and testing sets. Before re-fitting the LogisticRegression and RandomForestClassifier models on the scaled data.
+The data going into these models was never scaled and this is an important step in preprocessing. I used the `RobustScaler` function to scale the training and testing sets before re-fitting them to the `Logistic Regression` and `Random Forest Classifier` models.
 Amazing improvements to say the least for both models. Although we decreased recall, precision and overall accuracy improved drastically.
 More true negatives (low risk predicted as low risk) and more true positives (high risk predicted as high risk) for both models.
 My prediction was correct, the Random Forest Classifier was the better model overall.
