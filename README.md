@@ -1,56 +1,64 @@
-# Predicting Credit Risk
+# Predicting Credit Risk for LendingClub Applicants
 # Supervised Machine Learning
 
-Predict whether a loan from LendingClub will become high risk or not. 
+Predict whether a loan from [The LendingClub](https://resources.lendingclub.com/](https://resources.lendingclub.com/) will become **_high risk_** or not. 
 
-## Background
+># Background
 
-LendingClub is a peer-to-peer lending services company that allows individual investors to partially fund personal loans as well as buy and sell notes backing the loans on a secondary market. 
-* LendingClub offers their previous data through an API.
+[The LendingClub](https://resources.lendingclub.com/](https://resources.lendingclub.com/) is a peer-to-peer lending services company that allows individual investors to partially fund personal loans as well as buy and sell notes backing the loans on a secondary market. [The LendingClub](https://resources.lendingclub.com/](https://resources.lendingclub.com/) offers their previous data through an API.
 
-This machine learning model classifies the risk level of given loans. Specifically, comparing the Logistic Regression model and Random Forest Classifier.
+This machine learning model will classify the risk level of a given loan based on the column `loan_status`'s output which could be one of the following:
+* low_risk
+* high_risk
 
-## Instructions
+Specifically, I will be comparing a `Logistic Regression model` and a `Random Forest Classifier`.
+
+># Instructions
 
 ### Retrieve the data
 
-In the `Generator` folder in `Resources`, there is a [GenerateData.ipynb](/Resources/Generator/GenerateData.ipynb) notebook that will download data from LendingClub and output two CSVs: 
+In the `Generator` folder in `Resources`, there is a [GenerateData.ipynb](/Resources/Generator/GenerateData.ipynb) notebook that will download data from LendingClub as zip files in the current directory then extract the data, then clean the data: 
+* drop NaN rows/columns
+* convert types
+* rename values in target column
+* concatenate dataframes
 
-* `2019loans.csv`
-* `2020Q1loans.csv`
+..then compress and extract the cleaned csv up a directory. 
 
-Using an entire year's worth of data (2019), we predict the credit risk of loans from the first quarter of the next year (2020).
+Using an entire year's worth of data [2019loans.csv](/Resources/2019loans.csv), we predict the credit risk of loans from the first quarter of the next year [2020Q1loans.csv](/Resources/2020Q1loans.csv).
 
-Note: these two CSVs have been undersampled to give an even number of high risk and low risk loans. In the original dataset, only 2.2% of loans are categorized as high risk. To get a truly accurate model, special techniques need to be used on imbalanced data. Undersampling is one of those techniques. Oversampling and SMOTE (Synthetic Minority Over-sampling Technique) are other techniques that are also used.
+- **_Note: these two CSVs have been undersampled to give an even number of high risk and low risk loans. In the original dataset, only 2.2% of loans are categorized as high risk. To get a truly accurate model, special techniques need to be used on imbalanced data. Undersampling is one of those techniques. Oversampling and SMOTE (Synthetic Minority Over-sampling Technique) are other techniques that are also used._**
 
-## Preprocessing: Convert categorical data to numeric
+### Preprocessing: Convert categorical data to numeric
 
-Created a training set from the 2019 loans using `pd.get_dummies()` to convert the categorical data to numeric columns. 
-Similarly, created a testing set from the 2020 loans, also using `pd.get_dummies()`. 
-Note! There are categories in the 2019 loans that do not exist in the testing set. If you fit a model to the training set and try to score it on the testing set as is, you will get an error. You need to use code to fill in the missing categories in the testing set. 
+Moving on to [Credit_Risk_Models.ipynb](Credit_Risk_Models.ipynb) I encoded our training sets `X_train` and `y_train` from the 2019 loans using `pd.get_dummies()` to convert the categorical data to numeric columns. Repeated this step for `X_test` and `y_test`.
 
-## Consider the models
+- **_Note There was a missing category in the 2019 csv that did not exist in the testing set. If you fit a model to the training set and try to score it on the testing set as is, you will get an error. I had to fill in the missing category in the testing set but since I already encoded it all i had to do was inject the associated column and fill it with 0's as values._**
 
-You will be creating and comparing two models on this data: a logistic regression, and a random forests classifier. Before you create, fit, and score the models, make a prediction as to which model you think will perform better. You do not need to be correct! Write down (in markdown cells in your Jupyter Notebook or in a separate document) your prediction, and provide justification for your educated guess.
+## Considering the models
 
-## Fit a LogisticRegression model and RandomForestClassifier model
+I compared two models on this data: a **logistic regression** model, and a **random forests classifier** model. 
+I want to see what the results will look like using the data _as is_ as much as possible so I will run it before I scale it.
+I am pretty sure that the difference will be significant for both models, however, **I predicted that the `random forest classifier` would have the better results overall** (I was right lol)
 
-Create a LogisticRegression model, fit it to the data, and print the model's score. Do the same for a RandomForestClassifier. You may choose any starting hyperparameters you like. Which model performed better? How does that compare to your prediction? Write down your results and thoughts.
+## Fitting a LogisticRegression model and RandomForestClassifier model
+Below we can see the confusion matrix for each model followed by a horizontal bar chart comparing each model's performance.
+Both of these models performed heavy in recall (which is kinda what we hoped for lol) but the biased trade off is too significant to even consider this method (_unscaling data_). The reason I say that is because although not many high risk loans will be distrubuted, the actual low risk loans are not doing well either. With the data in it's current state, both models will be high_risk biased (not good). The Random Forest Classifier is still the better model even though its giving out less loans overall (LR = 934, RF = 857), it is still better at correctly identifying high risk loans as high risk loans (LR = 408, RF 196)
+
+![results.png](Images/results.png)
 
 ## Revisit the Preprocessing: Scale the data
 
-The data going into these models was never scaled, an important step in preprocessing. Use `StandardScaler` to scale the training and testing sets. Before re-fitting the LogisticRegression and RandomForestClassifier models on the scaled data, make another prediction about how you think scaling will affect the accuracy of the models. Write your predictions down and provide justification.
+The data going into these models was never scaled, an important step in preprocessing. Used `RobustScaler` to scale the training and testing sets. Before re-fitting the LogisticRegression and RandomForestClassifier models on the scaled data.
+Amazing improvements to say the least for both models. Although we decreased recall, precision and overall accuracy improved drastically.
+More true negatives (low risk predicted as low risk) and more true positives (high risk predicted as high risk) for both models.
+My prediction was correct, the Random Forest Classifier was the better model overall.
 
-Fit and score the LogisticRegression and RandomForestClassifier models on the scaled data. How do the model scores compare to each other, and to the previous results on unscaled data? How does this compare to your prediction? Write down your results and thoughts.
-
-## Rubric
-
-[Unit 19 - Supervised Machine Learning Homework Rubric](https://docs.google.com/document/d/1f_eN3TYiGqlaWL9Utk5U-P491OeWqFSiv7FIlI_d4_U/edit?usp=sharing)
+![scaled_results.png](Images/scaled_results.png)
 
 ### References
 
-LendingClub (2019-2020) _Loan Stats_. Retrieved from: [https://resources.lendingclub.com/](https://resources.lendingclub.com/)
+_Loan Stats_. Retrieved from: [LendingClub (2019-2020)](https://resources.lendingclub.com/](https://resources.lendingclub.com/)
 
-- - -
-
-© 2021 Trilogy Education Services, a 2U, Inc. brand. All Rights Reserved.
+Check my future machine learning repo's where I will go further into hypertunning parameters, use different models, and use different styles of visualizations.
+# Thanks!
