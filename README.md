@@ -1,11 +1,13 @@
 # Predicting Credit Risk for LendingClub Applicants
 # Supervised Machine Learning
 
+![thelendingclub](Images/thelendingclub.png)
+
 Predict whether a loan from [The LendingClub](https://resources.lendingclub.com/) will become **_high risk_** or not. 
 
 ># Background
 
-[The LendingClub](https://resources.lendingclub.com/](https://resources.lendingclub.com/) is a peer-to-peer lending services company that allows individual investors to partially fund personal loans as well as buy and sell notes backing the loans on a secondary market. [The LendingClub](https://resources.lendingclub.com/](https://resources.lendingclub.com/) offers their previous data through an API.
+[The LendingClub](https://resources.lendingclub.com/) is a peer-to-peer lending services company that allows individual investors to partially fund personal loans as well as buy and sell notes backing the loans on a secondary market. [The LendingClub](https://resources.lendingclub.com/) offers their previous data through an API.
 
 This machine learning model will classify the risk level of a given loan based on the column `loan_status`'s output which could be one of the following:
 * low_risk
@@ -58,7 +60,7 @@ My prediction was correct, the Random Forest Classifier was the better model ove
 
 ### References
 
-_Loan Stats_. Retrieved from: [LendingClub (2019-2020)](https://resources.lendingclub.com/](https://resources.lendingclub.com/)
+_Loan Stats_. Retrieved from: [LendingClub (2019-2020)](https://resources.lendingclub.com/)
 
 Check my future machine learning repo's where I will go further into hypertunning parameters, use different models, and use different styles of visualizations.
 # Thanks!
