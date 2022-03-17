@@ -1,11 +1,13 @@
 # Predicting Credit Risk for LendingClub Applicants
 # Supervised Machine Learning
 
-Predict whether a loan from [The LendingClub](https://resources.lendingclub.com/](https://resources.lendingclub.com/) will become **_high risk_** or not. 
+![thelendingclub](Images/thelendingclub.png)
+
+Predict whether a loan from [The LendingClub](https://resources.lendingclub.com/) will become **_high risk_** or not. 
 
 ># Background
 
-[The LendingClub](https://resources.lendingclub.com/](https://resources.lendingclub.com/) is a peer-to-peer lending services company that allows individual investors to partially fund personal loans as well as buy and sell notes backing the loans on a secondary market. [The LendingClub](https://resources.lendingclub.com/](https://resources.lendingclub.com/) offers their previous data through an API.
+[The LendingClub](https://resources.lendingclub.com/) is a peer-to-peer lending services company that allows individual investors to partially fund personal loans as well as buy and sell notes backing the loans on a secondary market. [The LendingClub](https://resources.lendingclub.com/) offers their previous data through an API.
 
 This machine learning model will classify the risk level of a given loan based on the column `loan_status`'s output which could be one of the following:
 * low_risk
@@ -47,9 +49,9 @@ Both of these models performed heavy in recall (which is kinda what we hoped for
 
 ![results.png](Images/results.png)
 
-## Revisit the Preprocessing: Scale the data
+## Revisit Preprocessing: Scale the data
 
-The data going into these models was never scaled, an important step in preprocessing. Used `RobustScaler` to scale the training and testing sets. Before re-fitting the LogisticRegression and RandomForestClassifier models on the scaled data.
+The data going into these models was never scaled and this is an important step in preprocessing. I used the `RobustScaler` function to scale the training and testing sets before re-fitting them to the `Logistic Regression` and `Random Forest Classifier` models.
 Amazing improvements to say the least for both models. Although we decreased recall, precision and overall accuracy improved drastically.
 More true negatives (low risk predicted as low risk) and more true positives (high risk predicted as high risk) for both models.
 My prediction was correct, the Random Forest Classifier was the better model overall.
@@ -58,7 +60,7 @@ My prediction was correct, the Random Forest Classifier was the better model ove
 
 ### References
 
-_Loan Stats_. Retrieved from: [LendingClub (2019-2020)](https://resources.lendingclub.com/](https://resources.lendingclub.com/)
+_Loan Stats_. Retrieved from: [LendingClub (2019-2020)](https://resources.lendingclub.com/)
 
 Check my future machine learning repo's where I will go further into hypertunning parameters, use different models, and use different styles of visualizations.
 # Thanks!
