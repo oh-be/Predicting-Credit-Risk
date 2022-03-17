@@ -1,7 +1,7 @@
 # Predicting Credit Risk for LendingClub Applicants
 # Supervised Machine Learning
 
-Predict whether a loan from [The LendingClub](https://resources.lendingclub.com/](https://resources.lendingclub.com/) will become **_high risk_** or not. 
+Predict whether a loan from [The LendingClub](https://resources.lendingclub.com/) will become **_high risk_** or not. 
 
 ># Background
 
